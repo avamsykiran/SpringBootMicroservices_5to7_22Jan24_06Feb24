@@ -49,4 +49,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		empRepo.deleteById(id);
 	}
 
+	@Override
+	public Employee getByMobile(String mobile) throws EmployeeNotFoundException {
+		return empRepo.findByMobile(mobile).orElseThrow(() -> new EmployeeNotFoundException("no such employee found"));
+	}
+
+	@Override
+	public Employee getByMailId(String mailId) throws EmployeeNotFoundException {
+		return empRepo.findByMailId(mailId).orElseThrow(() -> new EmployeeNotFoundException("no such employee found"));
+	}
+
 }
