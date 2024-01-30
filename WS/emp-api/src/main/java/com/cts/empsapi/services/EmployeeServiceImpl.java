@@ -3,11 +3,13 @@ package com.cts.empsapi.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cts.empsapi.entities.Employee;
 import com.cts.empsapi.exceptions.EmployeeNotFoundException;
 import com.cts.empsapi.repos.EmployeeRepo;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Autowired

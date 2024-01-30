@@ -1,5 +1,7 @@
 package com.cts.empsapi.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -23,8 +26,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="emps")
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@XmlRootElement
 public class Employee {
 
 	@Id
@@ -62,4 +66,6 @@ public class Employee {
 	@Enumerated(EnumType.STRING)
 	@Column(name="gen",nullable = false)
 	private Gender gender;
+
+	
 }
