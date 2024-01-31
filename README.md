@@ -234,3 +234,117 @@ public class GlobalExceptionHandle {
     }
 }
         
+Micro Services
+------------------------------------------------------------------------------
+
+    Case Study BudgetTracking APP
+        1. We need to have different consumer or account holders to register
+        2. Each accountHolder mst be able to record his spending or earning transactions.
+        3. Generate a statement periodically displaying the total spending , the total earning and the balance.
+
+
+    Monolythical App 
+
+        One build per application that contains all the modules of the application.
+    
+        1. Scalability
+        2. Avialability
+        3. Interoperability
+
+            BudgetTracking Application
+                1. Profiles Module
+                2. Transactions Module
+                3. Statement Module
+
+    Microservices
+
+        A microservice is an isolated independently deployable module of a large
+        application eco system.
+
+            we will have a spearate deployment for SalesModule
+            we will have a spearate deployment for HRModule
+            we will have a spearate deployment for DeliveriesModules ...etc.,
+
+        Because each module is a spepart isolated deployment, we can scale them independnetly.
+        Each modules can be shut down, maintained and redeployed without stopping other services.
+        Each module (microservice) can be developed using any technology we want.
+
+        Chanllenges in Developing and Maintaining Microservices
+
+            - Decomposiiton
+            - Inter-Service Communication
+            - Single Point Of Contact
+            - Monitoring and Maintaining
+
+        Microservice Design Patterns
+
+            Sub-Domain Pattern guides through bounded-context.
+
+                We will decompose the budgetTrackinApp into 3 microservices
+                    (a) Profiles-Service
+                            AccountHolder
+                                accountHolderId
+                                fullName
+                                mobileNumber
+                                mailId
+                                userId
+                                password
+
+                    (b) Transactions-Service
+                            AccountHolder
+                                accoountHolderId
+                                txns: Set<Txn>
+
+                            Txn
+                                dateOfTxn
+                                txnId
+                                txnAmount
+                                txnType
+                                owner : AccountHolder
+
+                    (c) Statement-Service                
+                            AccountHolder
+                                accountHolderId
+                                fullName
+                                mobileNumber
+                                mailId
+
+                            Txn
+                                dateOfTxn
+                                txnId
+                                txnAmount
+                                txnType
+
+                            Statement
+                                owner : AccountHolder
+                                txns: Set<txns>
+                                startDate: Date
+                                endDate: Date
+                                totalSpending
+                                totalEarning
+                                balance
+
+            Shared Database Pattern
+
+                Having a single DB for all microservices
+                in brown field apps
+
+            Database Per Service Pattern
+
+                Each microservice has its own database
+                in all green field apps
+
+            Discovery Service Pattern
+
+                discovery-service
+                    |
+                    |- all microservices will register their address with discovery-service
+                    |- the address are retrived from here by the needy microservices
+
+            
+
+
+        SOA - Service Oriented Archetecture
+
+
+
