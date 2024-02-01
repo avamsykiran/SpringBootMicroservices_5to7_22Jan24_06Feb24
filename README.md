@@ -341,10 +341,80 @@ Micro Services
                     |- all microservices will register their address with discovery-service
                     |- the address are retrived from here by the needy microservices
 
-            
+            Data Aggregation Pattern
 
+                Aggregation is about desiging a microservice that can collect info
+                from other microservices analyze and aggreagate the data and pass the 
+                aggregated data to the client, sacing the client from making multiple requests
+                for different parts of the data.
 
-        SOA - Service Oriented Archetecture
+                the 'statement-microservice' is an example for this pattern.
 
+            Client Side Component Pattern
 
+                Each component of the UI/UX application can place
+                their individual reqeusts to different microservices parellelly
+                and should be receiving the resposnes as well parllelly.
 
+            Distributed Tracing Design Pattern
+
+                Tracing - Service
+
+                    Whenever a request comes to any of the microservices in our app-ecosystem,
+                    that request is given a unique ID and is reported to the Tracing-Service
+                    every time, the request goes from one service to another service until
+                    the final resposne is sent to the clinet. And the tracing-service
+                    will record all the track of tehis request along with any performence
+                    metrics and log info attached with the request.
+
+            Load Balancing Desing Pattern
+
+                load balalcing means mapping the incoming reqeusts to multiple instacnes of the 
+                same microservice based on some (round-robin) algorithm.
+
+                tools like Ribbon / Spring Cloud Load Balancer ..etc., are used to perform load 
+                balancing.
+
+            API Gateway Design Pattern
+
+                gateway-service <------------(all reqs)--------------- any-client
+                    |
+                    | -> forward that request to the respective micro-service
+                    | <- receives the response from that micro-service
+                    |
+                    |----------------------------------(response)---------> client
+
+            Circuit - Breaker Design Pattern
+
+                circuit-breaker-thrushold
+
+                    when the first request could not reach a specific microservice (due to its down-time),
+                    a fallback machanisim is triggered.
+
+                    After that the circuit is made open (broken), means that the fallback machanisim
+                    will address all the other consiquitive request targetting that microservice.
+
+                    When a request to the sme micro-service is inbound after the thrushold, then the
+                    circuit is half-closed, means that a new attemp to reach the microserivce is made,
+                            }|- on successful contact, the circuit is closed
+                             |- or if that microservice is still unavailable, the circuit continues to be open.
+
+                    tools like Resiliance4j ..etc., are for the purpose.
+
+            External-Cofiguaration Design Pattern
+
+                    repository (github) [contains a list all config files of all microservice]
+                        |
+                        |                
+                config-service
+                            |<- when ever a microservice has to start, it will first send a fetech req the
+                            |   the config-service
+                            |
+                            | the config-service will check for the cofnig file in the repo
+                            |
+                            |<- the config file is passed to the microservcei by the config-service
+                            |
+                            |<- wheever the config fiels are modified and pushed into the repo
+                            |   the config service will automatically notify all the respective microservices
+                                    and the microservices will receive the updated config-file and restart all by 
+                                    themselves.
