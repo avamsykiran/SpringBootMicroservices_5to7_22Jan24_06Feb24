@@ -61,13 +61,11 @@ public class TxnServiceImpl implements TxnService {
 
 		double cb = ah.getCurrentBalance();
 		ah.setCurrentBalance(txn.getType() == TxnType.CREDIT ? cb + txn.getAmount() : cb - txn.getAmount());
-		
-		txn.setHolder(ah);		
-		txn = txnRepo.save(txn);
 		ah.getTxns().add(txn);
+		txn.setHolder(ah);
 		ahRepo.save(ah);
 
-		return txn;
+		return txnRepo.save(txn);
 	}
 
 	@Transactional
@@ -84,7 +82,7 @@ public class TxnServiceImpl implements TxnService {
 		ah.setCurrentBalance(cb);
 		ahRepo.save(ah);
 
-		return txn;
+		return txnRepo.save(txn);
 	}
 
 	@Override
