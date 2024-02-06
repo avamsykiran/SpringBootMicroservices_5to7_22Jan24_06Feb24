@@ -673,7 +673,7 @@ Implementing Budget-tracker
         in.bta:bta-gateway
             dependencies
                 org.springframework.boot:spring-boot-devtools
-                org.springframework.cloud:spring-cloud-starter-api-gateway
+                org.springframework.cloud:spring-cloud-starter-gateway
                 org.springframework.cloud:spring-cloud-starter-netflix-eureka-client
                 org.springframework.cloud:spring-cloud-starter-loadbalancer
             configuaration
